@@ -14,7 +14,7 @@ from sklearn.metrics import accuracy_score, f1_score
 import os
 
 if platform.system() == 'Windows':
-    plt.rc('font', family='Malgun Gothic')
+    plt.rc('font', family='NaNumGothic.otf')
 elif platform.system() == 'Darwin':
     plt.rc('font', family='NanumBarunGothic')
 else:
