@@ -16,7 +16,7 @@ import os
 if platform.system() == 'Windows':
     plt.rc('font', family='Malgun Gothic')
 elif platform.system() == 'Darwin':
-    plt.rc('font', family='AppleGothic')
+    plt.rc('font', family='NanumBarunGothic')
 else:
     plt.rc('font', family='NanumGothic')
 
@@ -454,40 +454,6 @@ def main():
                     with st.expander(f"💡 {term}"):
                         st.write(defn)
 
-    # ─ 탭 4: 모델 정보 ────────────────────────────────────
-    with tab_model:
-        st.subheader("🤖 AI 모델 정보")
-        col_a, col_b = st.columns(2)
-        with col_a:
-            st.markdown("**비만 예측 모델**")
-            st.markdown("- 알고리즘: Random Forest Classifier")
-            st.markdown("- 입력 변수: 나이, 성별, BMI")
-        with col_b:
-            st.markdown("**당뇨 예측 모델**")
-            st.markdown("- 알고리즘: Random Forest Classifier")
-            st.markdown(f"- 테스트 정확도: **{m['diab_acc']:.3f}**")
-            st.markdown(f"- F1-Score: **{m['diab_f1']:.3f}**")
-
-        st.divider()
-        st.markdown("**변수 중요도 (당뇨 모델)**")
-        importances = m["model_diabetes"].feature_importances_
-        feat_df = pd.DataFrame({
-            "변수": ["나이", "성별", "BMI", "혈당", "고혈압", "흡연"],
-            "중요도": importances,
-        }).sort_values("중요도", ascending=False)
-
-        fig_imp, ax_imp = plt.subplots(figsize=(7, 3))
-        ax_imp.barh(feat_df["변수"][::-1], feat_df["중요도"][::-1], color="#38a3a5")
-        ax_imp.set_xlabel("중요도 (Relative Importance)")
-        ax_imp.set_title("당뇨 예측 모델 변수 중요도")
-        ax_imp.grid(axis="x", linestyle=":", alpha=0.5)
-        plt.tight_layout()
-        st.pyplot(fig_imp)
-
-        st.caption(
-            "⚠️ 본 서비스는 AI 기반의 **참고용** 위험도 예측 도구입니다. "
-            "실제 진단 및 치료는 반드시 의료 전문가와 상담하시기 바랍니다."
-        )
 
 
 if __name__ == "__main__":
