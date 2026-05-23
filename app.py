@@ -4,12 +4,23 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.font_manager as fm
+import matplotlib.pyplot as plt
+import platform
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, f1_score
 import os
+
+if platform.system() == 'Windows':
+    plt.rc('font', family='Malgun Gothic')
+elif platform.system() == 'Darwin':
+    plt.rc('font', family='AppleGothic')
+else:
+    plt.rc('font', family='NanumGothic')
+
+plt.rcParams['axes.unicode_minus'] = False
 
 # ── 페이지 기본 설정 ──────────────────────────────────────────────
 st.set_page_config(
@@ -273,12 +284,12 @@ def get_diet_guide(obesity_label: str, diab_prob: float) -> tuple[str, str]:
         )
 
     # 당뇨 예방
-    diab_advice = (
-        "① **식사 순서 바꾸기**: 채소 → 단백질 → 탄수화물 순으로 드셔보세요. 혈당이 천천히 오릅니다.\n"
-        "② **잡곡밥**: 흰쌀밥·밀가루 음식 대신 현미나 보리, 잡곡을 섞어 드세요.\n"
-        "③ **규칙적인 식사**: 아침·점심·저녁을 정해진 시간에 드셔야 췌장이 건강합니다.\n"
-        "④ **식후 산책**: 식사 후 20~30분 뒤 가볍게 걸으시면 혈당이 내려갑니다."
-    )
+    diab_advice = """
+        ① **식사 순서 바꾸기**: 채소 → 단백질 → 탄수화물 순으로 드셔보세요. 혈당이 천천히 오릅니다.\n
+        ② **잡곡밥**: 흰쌀밥·밀가루 음식 대신 현미나 보리, 잡곡을 섞어 드세요.\n
+        ③ **규칙적인 식사**: 아침·점심·저녁을 정해진 시간에 드셔야 췌장이 건강합니다.\n
+        ④ **식후 산책**: 식사 후 20~30분 뒤 가볍게 걸으시면 혈당이 내려갑니다.
+        """
     return weight_advice, diab_advice
 
 
